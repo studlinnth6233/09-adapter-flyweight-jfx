@@ -65,13 +65,22 @@ public final class MainController implements Initializable {
 
 		if(generationToggleBtn.isSelected() && fighterGeneratorThread == null) {
 			logger.debug("Spawning new FighterGenerator background thread");
-			fighterGeneratorThread = new Thread(new FighterGenerator(Platform::runLater, lightSideTable.getItems(), darkSideTable.getItems()), "FighterGenerator");
+			fighterGeneratorThread = new Thread(new FighterGenerator(
+				Platform::runLater,
+				lightSideTable.getItems(),
+				darkSideTable.getItems()),
+				"FighterGenerator");
+
 			fighterGeneratorThread.setDaemon(true);
 			fighterGeneratorThread.start();
+
+			generationToggleBtn.setText("Stop");
 		}else {
 			logger.debug("Interrupting FighterGenerator thread");
 			fighterGeneratorThread.interrupt();
 			fighterGeneratorThread = null;
+
+			generationToggleBtn.setText("Start");
 		}
 	}
 

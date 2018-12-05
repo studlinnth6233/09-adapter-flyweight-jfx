@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 
 /**
  * @author Peter Kurfer
+ *
+ * Note: This program can't be started from IntelliJ, use `./gradlew run` in the terminal.
  */
 public class App extends Application {
 
@@ -20,6 +22,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+    	// note: var is the dynamic type; specify template argument b/c compiler can't infer it!
         var root = FXMLLoader.<Parent>load(getClass().getResource("views/main.fxml"));
         primaryStage.setTitle("Fleet management");
         primaryStage.setScene(new Scene(root, 800, 600));

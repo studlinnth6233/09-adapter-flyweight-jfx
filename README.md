@@ -60,7 +60,7 @@ _Hint: think of a data structure that enables you to retrieve the matching eleme
 If everything works out the memory usage should stagnate instead of constantly grow when you start the application.
 
 
-## Assigment 2: Adapter
+## Assignment 2: Adapter
 
 As you already know adapters are used e.g to create a compatibility layer between to incompatible interfaces or to create a more convenient API if the API of e.g. a library is too complicated.
 

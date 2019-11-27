@@ -4,7 +4,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 class NameGeneratorTest
 {
@@ -15,9 +16,9 @@ class NameGeneratorTest
 	@Test
 	void generateName()
 	{
-		for (var i = 0; i < 100; i++)
+		for (int i = 0; i < 100; i++)
 		{
-			var generatedName = nameGenerator.generateName();
+			String generatedName = nameGenerator.generateName();
 			assertNotNull(generatedName);
 			assertNotEquals(0, generatedName.length());
 			logger.debug("Generated name: {}", generatedName);

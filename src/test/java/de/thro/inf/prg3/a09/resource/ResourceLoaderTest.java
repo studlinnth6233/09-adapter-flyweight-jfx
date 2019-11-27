@@ -7,7 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ResourceLoaderTest
 {
@@ -17,7 +18,7 @@ class ResourceLoaderTest
 	ResourceLoaderTest()
 	{
 		stringResourceLoader = new ResourceLoader<>(is -> {
-			try (var bufferedReader = new BufferedReader(new InputStreamReader(is)))
+			try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(is)))
 			{
 				return bufferedReader.lines().collect(Collectors.joining());
 			} catch (IOException e)

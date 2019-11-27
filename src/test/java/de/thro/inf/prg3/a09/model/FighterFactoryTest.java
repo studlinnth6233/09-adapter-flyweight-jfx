@@ -3,10 +3,13 @@ package de.thro.inf.prg3.a09.model;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 class FighterFactoryTest
 {
@@ -21,11 +24,11 @@ class FighterFactoryTest
 	@Test
 	void createFighterEnsureDifferentNames()
 	{
-		var fighters = new HashSet<>();
+		HashSet<String> fighters = new HashSet<>();
 
-		for (var i = 0; i < 25; i++)
+		for (int i = 0; i < 25; i++)
 		{
-			var fighter = fighterFactory.createFighter();
+			Fighter fighter = fighterFactory.createFighter();
 			assertFalse(fighters.contains(fighter.getPilot()));
 			fighters.add(fighter.getPilot());
 		}
@@ -34,7 +37,7 @@ class FighterFactoryTest
 	@Test
 	void createFighterEnsureSideOfForce()
 	{
-		var groupedBySideOfForce = IntStream.range(0, 100)
+		Map<Force, List<Fighter>> groupedBySideOfForce = IntStream.range(0, 100)
 			.mapToObj(i -> fighterFactory.createFighter())
 			.collect(Collectors.groupingBy(Fighter::getSideOfForce));
 
@@ -44,13 +47,13 @@ class FighterFactoryTest
 	@Test
 	void createFighterEnsureTypesPerSideOfForce()
 	{
-		var groupedBySideOfForce = IntStream.range(0, 100)
+		Map<Force, List<Fighter>> groupedBySideOfForce = IntStream.range(0, 100)
 			.mapToObj(i -> fighterFactory.createFighter())
 			.collect(Collectors.groupingBy(Fighter::getSideOfForce));
 
-		for (var sideOfForce : groupedBySideOfForce.keySet())
+		for (Force sideOfForce : groupedBySideOfForce.keySet())
 		{
-			var groupedByType = groupedBySideOfForce.get(sideOfForce)
+			Map<? extends Class<?>, List<Fighter>> groupedByType = groupedBySideOfForce.get(sideOfForce)
 				.stream()
 				.collect(Collectors.groupingBy(Object::getClass));
 

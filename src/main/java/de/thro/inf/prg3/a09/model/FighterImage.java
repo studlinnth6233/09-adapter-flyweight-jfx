@@ -1,6 +1,6 @@
 package de.thro.inf.prg3.a09.model;
 
-import de.thro.inf.prg3.a09.resource.ResourceLoader;
+import de.thro.inf.prg3.a09.resource.FxImageLoaderAdapter;
 import javafx.scene.image.Image;
 
 public class FighterImage
@@ -9,9 +9,9 @@ public class FighterImage
 
 	protected FighterImage(String path)
 	{
-		ResourceLoader<Image> imageLoader = new ResourceLoader<>(Image::new);
+		FxImageLoaderAdapter imageLoader = new FxImageLoaderAdapter();
 
-		this.image = imageLoader.loadResource(ClassLoader.getSystemClassLoader(), path);
+		this.image = imageLoader.loadImage(path);
 	}
 
 	public Image getImage()

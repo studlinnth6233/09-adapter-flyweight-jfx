@@ -24,14 +24,12 @@ public final class FighterFactory
 	private static final int NumberOfKnownFighterTypes = 6;
 	private final Random random;
 	private final NameGenerator nameGenerator;
-	private final ResourceLoader<Image> imageResourceLoader;
 	private final FighterImageFactory imageFactory;
 
 	public FighterFactory()
 	{
 		nameGenerator = new NameGenerator();
 		random = new Random();
-		imageResourceLoader = new ResourceLoader<>(Image::new);
 		imageFactory = new FighterImageFactory();
 	}
 

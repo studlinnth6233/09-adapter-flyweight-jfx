@@ -5,7 +5,8 @@ package de.thro.inf.prg3.a09.model;
  *
  * @author Peter Kurfer
  */
-public enum Force{
+public enum Force
+{
 	LightSide,
 	DarkSide
 }

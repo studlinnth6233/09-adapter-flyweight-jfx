@@ -18,14 +18,16 @@ import java.util.Random;
  *
  * @author Peter Kurfer
  */
-public final class FighterFactory {
+public final class FighterFactory
+{
 
 	private static final int NumberOfKnownFighterTypes = 6;
 	private final Random random;
 	private final NameGenerator nameGenerator;
 	private final ResourceLoader<Image> imageResourceLoader;
 
-	public FighterFactory() {
+	public FighterFactory()
+	{
 		nameGenerator = new NameGenerator();
 		random = new Random();
 		imageResourceLoader = new ResourceLoader<>(Image::new);
@@ -34,11 +36,14 @@ public final class FighterFactory {
 	/**
 	 * Create a random Fighter
 	 *
-	 * @implNote the method has an implementation flaw because it always loads the fighters image
 	 * @return a new Fighter instance
+	 *
+	 * @implNote the method has an implementation flaw because it always loads the fighters image
 	 */
-	public Fighter createFighter() {
-		switch (random.nextInt(NumberOfKnownFighterTypes)) {
+	public Fighter createFighter()
+	{
+		switch (random.nextInt(NumberOfKnownFighterTypes))
+		{
 			case 0:
 				return new AWing(nameGenerator.generateName(), imageResourceLoader.loadResource(ClassLoader.getSystemClassLoader(), "fighter/awing.jpg"));
 			case 1:

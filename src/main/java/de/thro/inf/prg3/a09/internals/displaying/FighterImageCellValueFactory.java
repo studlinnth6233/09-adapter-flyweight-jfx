@@ -12,7 +12,8 @@ import javafx.util.Callback;
  *
  * @author Peter Kurfer
  */
-public final class FighterImageCellValueFactory implements Callback<TableColumn.CellDataFeatures<Fighter, ImageView>, ObservableValue<ImageView>> {
+public final class FighterImageCellValueFactory implements Callback<TableColumn.CellDataFeatures<Fighter, ImageView>, ObservableValue<ImageView>>
+{
 
 	private final double imageWidth;
 
@@ -21,20 +22,23 @@ public final class FighterImageCellValueFactory implements Callback<TableColumn.
 	 *
 	 * @param imageWidth image width to scale the images to
 	 */
-	public FighterImageCellValueFactory(final double imageWidth) {
+	public FighterImageCellValueFactory(final double imageWidth)
+	{
 		this.imageWidth = imageWidth;
 	}
 
 	/**
 	 * Create a FighterImageCellValueFactory
 	 */
-	public FighterImageCellValueFactory() {
+	public FighterImageCellValueFactory()
+	{
 		this(100d);
 	}
 
 	@Override
-	public ObservableValue<ImageView> call(final TableColumn.CellDataFeatures<Fighter, ImageView> param) {
-		var imageView = new ImageView(param.getValue().getFighterImage());
+	public ObservableValue<ImageView> call(final TableColumn.CellDataFeatures<Fighter, ImageView> param)
+	{
+		ImageView imageView = new ImageView(param.getValue().getFighterImage());
 
 		imageView.setPreserveRatio(true);
 		imageView.setFitWidth(this.imageWidth);

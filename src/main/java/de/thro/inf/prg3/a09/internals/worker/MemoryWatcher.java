@@ -11,7 +11,8 @@ import java.util.function.Consumer;
  *
  * @author Peter Kurfer
  */
-public final class MemoryWatcher implements Runnable {
+public final class MemoryWatcher implements Runnable
+{
 
 	private static final Logger logger = LogManager.getLogger(MemoryWatcher.class);
 	private final Consumer<Runnable> dispatcher;
@@ -23,28 +24,33 @@ public final class MemoryWatcher implements Runnable {
 	 * Default constructor
 	 *
 	 * @param memorySeries chart series to store data in
-	 * @param dispatcher dispatcher reference to be able to run code in UI thread
+	 * @param dispatcher   dispatcher reference to be able to run code in UI thread
 	 */
-	public MemoryWatcher(final XYChart.Series<Long, Long> memorySeries, final Consumer<Runnable> dispatcher) {
+	public MemoryWatcher(final XYChart.Series<Long, Long> memorySeries, final Consumer<Runnable> dispatcher)
+	{
 		this.memorySeries = memorySeries;
 		this.dispatcher = dispatcher;
 		this.runtime = Runtime.getRuntime();
 	}
 
 	@Override
-	public void run() {
+	public void run()
+	{
 		/* run as long as the current thread is not interrupted */
-		while (!Thread.currentThread().isInterrupted()) {
+		while (!Thread.currentThread().isInterrupted())
+		{
 
 			/* local copy is necessary because variables used in lambdas have to effectively final */
-			var currentIdx = secondsSinceStart++;
+			long currentIdx = secondsSinceStart++;
 
 			/* calculate the amount of memory currently used by the process and add it to the chart series */
 			dispatcher.accept(() -> memorySeries.getData().add(new XYChart.Data<>(currentIdx, ((runtime.totalMemory() - runtime.freeMemory()) / (1024L * 1024L)))));
-			try {
+			try
+			{
 				/* Sleep 1s till next update */
 				Thread.sleep(1000);
-			} catch (InterruptedException e) {
+			} catch (InterruptedException e)
+			{
 				logger.info("Got interrupted, exiting now.");
 				return;
 			}

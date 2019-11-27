@@ -14,7 +14,8 @@ import java.util.function.Consumer;
 /**
  * @author Peter Kurfer
  */
-public final class FighterGenerator implements Runnable {
+public final class FighterGenerator implements Runnable
+{
 
 	private static final Logger logger = LogManager.getLogger(FighterGenerator.class);
 	private final FighterFactory fighterFactory;
@@ -28,12 +29,13 @@ public final class FighterGenerator implements Runnable {
 	/**
 	 * Create a new FighterGenerator initialized with a custom threshold when Fighters are moved to the UI
 	 *
-	 * @param dispatcher dispatcher reference to be able to run code in UI thread
+	 * @param dispatcher        dispatcher reference to be able to run code in UI thread
 	 * @param lightSideFighters reference list of Fighter of the light side
-	 * @param darkSideFighters reference list of Fighter of the dark side
-	 * @param insertThreshold threshold when created Fighters should be moved to UI/table views
+	 * @param darkSideFighters  reference list of Fighter of the dark side
+	 * @param insertThreshold   threshold when created Fighters should be moved to UI/table views
 	 */
-	public FighterGenerator(final Consumer<Runnable> dispatcher, final ObservableList<Fighter> lightSideFighters, final ObservableList<Fighter> darkSideFighters, final int insertThreshold) {
+	public FighterGenerator(final Consumer<Runnable> dispatcher, final ObservableList<Fighter> lightSideFighters, final ObservableList<Fighter> darkSideFighters, final int insertThreshold)
+	{
 		this.dispatcher = dispatcher;
 		this.lightSideFighters = lightSideFighters;
 		this.darkSideFighters = darkSideFighters;
@@ -46,23 +48,29 @@ public final class FighterGenerator implements Runnable {
 	/**
 	 * Create a new FighterGenerator
 	 *
-	 * @param dispatcher dispatcher reference to be able to run code in UI thread
+	 * @param dispatcher        dispatcher reference to be able to run code in UI thread
 	 * @param lightSideFighters reference list of Fighter of the light side
-	 * @param darkSideFighters reference list of Fighter of the dark side
+	 * @param darkSideFighters  reference list of Fighter of the dark side
 	 */
-	public FighterGenerator(final Consumer<Runnable> dispatcher, final ObservableList<Fighter> lightSideFighters, final ObservableList<Fighter> darkSideFighters) {
+	public FighterGenerator(final Consumer<Runnable> dispatcher, final ObservableList<Fighter> lightSideFighters, final ObservableList<Fighter> darkSideFighters)
+	{
 		this(dispatcher, lightSideFighters, darkSideFighters, 10);
 	}
 
 	@Override
-	public void run() {
+	public void run()
+	{
 		/* run as long as the current thread is not interrupted */
-		while (!Thread.currentThread().isInterrupted()) {
-			try {
-				if (queue.size() >= insertThreshold) {
+		while (!Thread.currentThread().isInterrupted())
+		{
+			try
+			{
+				if (queue.size() >= insertThreshold)
+				{
 					logger.info("Pushing fighters to view");
 					queue.forEach(fighter -> dispatcher.accept(() -> {
-						switch (fighter.getSideOfForce()) {
+						switch (fighter.getSideOfForce())
+						{
 							case DarkSide:
 								darkSideFighters.add(fighter);
 								break;
@@ -72,13 +80,15 @@ public final class FighterGenerator implements Runnable {
 						}
 					}));
 					queue.clear();
-				} else {
+				} else
+				{
 					logger.info("Enqueuing new fighter");
 					queue.push(this.fighterFactory.createFighter());
 				}
 				logger.debug("Fighter generator going to sleep now...");
 				Thread.sleep(random.nextInt(200));
-			} catch (InterruptedException e) {
+			} catch (InterruptedException e)
+			{
 				logger.info("Got interrupted, exiting now.");
 				return;
 			}

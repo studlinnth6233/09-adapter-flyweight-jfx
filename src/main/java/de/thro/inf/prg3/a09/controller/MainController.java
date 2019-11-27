@@ -6,7 +6,6 @@ import de.thro.inf.prg3.a09.internals.worker.MemoryWatcher;
 import de.thro.inf.prg3.a09.model.Fighter;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
@@ -18,14 +17,14 @@ import javafx.scene.image.ImageView;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
  * @author Peter Kurfer
  */
-public final class MainController implements Initializable {
+public final class MainController implements Initializable
+{
 
 	private static final Logger logger = LogManager.getLogger(MainController.class);
 
@@ -56,14 +55,17 @@ public final class MainController implements Initializable {
 	@FXML
 	private AreaChart<Long, Long> memoryChart;
 
-	public MainController() {
+	public MainController()
+	{
 		memorySeries = new XYChart.Series<>();
 	}
 
 	@FXML
-	private void handleToggleFighterGeneration() {
+	private void handleToggleFighterGeneration()
+	{
 
-		if(generationToggleBtn.isSelected() && fighterGeneratorThread == null) {
+		if (generationToggleBtn.isSelected() && fighterGeneratorThread == null)
+		{
 			logger.debug("Spawning new FighterGenerator background thread");
 			fighterGeneratorThread = new Thread(new FighterGenerator(
 				Platform::runLater,
@@ -75,7 +77,8 @@ public final class MainController implements Initializable {
 			fighterGeneratorThread.start();
 
 			generationToggleBtn.setText("Stop");
-		}else {
+		} else
+		{
 			logger.debug("Interrupting FighterGenerator thread");
 			fighterGeneratorThread.interrupt();
 			fighterGeneratorThread = null;
@@ -85,7 +88,8 @@ public final class MainController implements Initializable {
 	}
 
 	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+	public void initialize(URL location, ResourceBundle resources)
+	{
 
 		lightSideFighterImageColumn.setCellValueFactory(new FighterImageCellValueFactory());
 		lightSideFighterPilotColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getPilot()));
@@ -96,7 +100,7 @@ public final class MainController implements Initializable {
 		memoryChart.setTitle("System monitoring");
 		memoryChart.getData().add(memorySeries);
 
-		var memoryWatcherThread = new Thread(new MemoryWatcher(memorySeries, Platform::runLater), "MemoryWatcher");
+		Thread memoryWatcherThread = new Thread(new MemoryWatcher(memorySeries, Platform::runLater), "MemoryWatcher");
 		memoryWatcherThread.setDaemon(true);
 		memoryWatcherThread.start();
 	}

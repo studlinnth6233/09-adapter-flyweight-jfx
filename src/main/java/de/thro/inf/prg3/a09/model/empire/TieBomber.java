@@ -8,19 +8,23 @@ import javafx.scene.image.Image;
  * @author Peter Kurfer
  */
 
-public class TieBomber extends Fighter {
+public class TieBomber extends Fighter
+{
 
-	public TieBomber(String pilot, Image fighterImage) {
+	public TieBomber(String pilot, Image fighterImage)
+	{
 		super(pilot, fighterImage);
 	}
 
 	@Override
-	public Force getSideOfForce() {
+	public Force getSideOfForce()
+	{
 		return Force.DarkSide;
 	}
 
 	@Override
-	public String getFighterType() {
+	public String getFighterType()
+	{
 		return "Tie Bomber";
 	}
 }
